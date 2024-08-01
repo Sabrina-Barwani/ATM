@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ATM Software</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    input, button {
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px;
+    }
+    
+    #balance-display {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ATM Software</h1>
+  
+  <div>
+    <label for="option-select">Choose an option:</label>
+    <select id="option-select">
+      <option value="1">Withdraw</option>
+      <option value="2">Deposit</option>
+      <option value="3">Transfer</option>
+    </select>
+  </div>
+  
+  <div>
+    <input type="number" id="amount-input" placeholder="Enter amount" />
+    <button onclick="processTransaction()">Submit</button>
+  </div>
+  
+  <div id="balance-display">Current Balance: $50,000</div>
+  
+  <script>
+    var balanceValue = 50000;
+
+    function processTransaction() {
+      var uservalue = document.getElementById("option-select").value;
+      var amount = Number(document.getElementById("amount-input").value);
+
+      switch (uservalue) {
+        case "1":
+          // withdraw
+          if (balanceValue >= amount) {
+            balanceValue -= amount;
+            alert("Your transaction was accepted. You withdrew $" + amount + ". Your new balance is $" + balanceValue);
+          } else {
+            alert("Insufficient amount");
+          }
+          break;
+        case "2":
+          // deposit
+          balanceValue += amount;
+          alert("Your transaction was accepted. You deposited $" + amount + ". Your new balance is $" + balanceValue);
+          break;
+        case "3":
+          // transfer
+          if (balanceValue >= amount) {
+            balanceValue -= amount;
+            alert("Your transaction was accepted. You transferred $" + amount + ". Your new balance is $" + balanceValue);
+          } else {
+            alert("Insufficient amount");
+          }
+          break;
+        default:
+          alert("Invalid option");
+          break;
+      }
+
+      document.getElementById("balance-display").textContent = "Current Balance: $" + balanceValue.toLocaleString();
+    }
+  </script>
+</body>
+</html>
